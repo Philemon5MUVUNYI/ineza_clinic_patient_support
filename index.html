@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ineza Clinic Patient Support Management System">
+  <title>Ineza Clinic | Patient Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-brand">
+      <div class="brand-mark">+</div>
+      <div><strong>ineza<span>clinic</span></strong><small>CARE THAT LISTENS</small></div>
+    </div>
+    <div class="login-card">
+      <div class="login-icon">✚</div>
+      <p class="eyebrow">PATIENT SUPPORT PORTAL</p>
+      <h1>Welcome back</h1>
+      <p class="muted">Sign in to manage patient care and support.</p>
+      <form id="loginForm">
+        <label>Email address</label>
+        <input id="loginEmail" type="email" value="admin@inezaclinic.rw" required>
+        <label>Password</label>
+        <input id="loginPassword" type="password" value="ineza123" required>
+        <button class="btn primary full" type="submit">Sign in <span>→</span></button>
+      </form>
+      <div class="demo-hint"><b>Demo access</b><br>admin@inezaclinic.rw / ineza123</div>
+    </div>
+    <p class="login-footer">© 2026 Ineza Clinic. Patient care, made simpler.</p>
+  </div>
+
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">+</div>
+        <div><strong>ineza<span>clinic</span></strong><small>CARE THAT LISTENS</small></div>
+      </div>
+      <div class="nav-caption">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+        <button class="nav-item" data-page="patients"><span class="nav-icon">♙</span>Patients</button>
+        <button class="nav-item" data-page="support"><span class="nav-icon">◉</span>Support requests <i id="openRequestBadge">3</i></button>
+        <button class="nav-item" data-page="appointments"><span class="nav-icon">▣</span>Appointments</button>
+        <button class="nav-item" data-page="doctors"><span class="nav-icon">⚕</span>Doctors</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">♡</div><b>Need a hand?</b><p>Contact the system administrator for help.</p><button id="helpBtn">Get support →</button></div>
+        <button class="nav-item" id="logoutBtn"><span class="nav-icon">↪</span>Sign out</button>
+        <div class="profile-mini"><div class="avatar">AM</div><div><b>Admin Manager</b><small>Administrator</small></div><span>•••</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu">☰</button>
+        <div class="breadcrumb">Ineza Clinic <span>/</span> <b id="breadcrumbPage">Dashboard</b></div>
+        <div class="top-actions">
+          <div class="today-label" id="todayLabel"></div>
+          <button class="icon-button" id="notificationBtn" title="Notifications">♧<em></em></button>
+          <div class="top-avatar">AM</div>
+        </div>
+      </header>
+      <div class="page-wrap">
+        <section id="dashboardPage" class="page active">
+          <div class="welcome-row">
+            <div><p class="eyebrow">OVERVIEW</p><h1>Good day, Admin <span>✦</span></h1><p class="muted">Here’s what’s happening at Ineza Clinic today.</p></div>
+            <button class="btn primary" data-action="new-patient">＋ Register patient</button>
+          </div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>Total patients</span><span class="stat-icon blue">♙</span></div><strong id="statPatients">0</strong><small><b class="positive">↗ Active</b> patient records</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Open support requests</span><span class="stat-icon orange">◉</span></div><strong id="statRequests">0</strong><small>Awaiting staff response</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Appointments today</span><span class="stat-icon purple">▣</span></div><strong id="statAppointments">0</strong><small>Scheduled consultations</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Available doctors</span><span class="stat-icon green">⚕</span></div><strong id="statDoctors">0</strong><small>Listed in the directory</small></article>
+          </div>
+          <div class="content-grid">
+            <article class="panel">
+              <div class="panel-heading"><div><h2>Recent support requests</h2><p>Latest patient messages and concerns</p></div><button class="text-button" data-page="support">View all →</button></div>
+              <div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>REQUEST</th><th>PRIORITY</th><th>STATUS</th></tr></thead><tbody id="recentRequests"></tbody></table></div>
+            </article>
+            <article class="panel appointment-panel">
+              <div class="panel-heading"><div><h2>Upcoming appointments</h2><p>Next scheduled visits</p></div><button class="text-button" data-page="appointments">View all →</button></div>
+              <div id="upcomingAppointments" class="upcoming-list"></div>
+            </article>
+          </div>
+          <div class="bottom-grid">
+            <article class="panel"><div class="panel-heading"><div><h2>Quick actions</h2><p>Common clinic activities</p></div></div><div class="quick-actions">
+              <button data-action="new-patient"><span class="quick-icon blue">＋</span><b>Add patient</b><small>Create a patient record</small></button>
+              <button data-action="new-request"><span class="quick-icon orange">✉</span><b>New support request</b><small>Log a patient concern</small></button>
+              <button data-action="new-appointment"><span class="quick-icon purple">▣</span><b>Book appointment</b><small>Schedule a consultation</small></button>
+            </div></article>
+            <article class="panel note-panel"><div class="note-symbol">✦</div><div><h2>Every patient matters</h2><p>Listen carefully, respond promptly, and make every interaction a positive care experience.</p></div></article>
+          </div>
+        </section>
+
+        <section id="patientsPage" class="page">
+          <div class="page-heading"><div><p class="eyebrow">PATIENT DIRECTORY</p><h1>Patients</h1><p class="muted">Manage patient information and records.</p></div><button class="btn primary" data-action="new-patient">＋ Add patient</button></div>
+          <div class="panel">
+            <div class="toolbar"><div class="search-box">⌕ <input id="patientSearch" placeholder="Search by name, phone or patient ID..."></div><span class="result-count" id="patientCount"></span></div>
+            <div class="table-wrap"><table><thead><tr><th>PATIENT ID</th><th>NAME</th><th>PHONE</th><th>EMAIL</th><th>GENDER</th><th>ACTIONS</th></tr></thead><tbody id="patientsTable"></tbody></table></div>
+          </div>
+        </section>
+
+        <section id="supportPage" class="page">
+          <div class="page-heading"><div><p class="eyebrow">PATIENT EXPERIENCE</p><h1>Support requests</h1><p class="muted">Track questions, complaints and assistance requests.</p></div><button class="btn primary" data-action="new-request">＋ New request</button></div>
+          <div class="filter-row"><div class="search-box">⌕ <input id="requestSearch" placeholder="Search requests..."></div><select id="statusFilter"><option value="all">All statuses</option><option>Open</option><option>In Progress</option><option>Resolved</option></select><select id="priorityFilter"><option value="all">All priorities</option><option>High</option><option>Medium</option><option>Low</option></select></div>
+          <div id="supportCards" class="support-list"></div>
+        </section>
+
+        <section id="appointmentsPage" class="page">
+          <div class="page-heading"><div><p class="eyebrow">SCHEDULE & CARE</p><h1>Appointments</h1><p class="muted">View and manage patient consultations.</p></div><button class="btn primary" data-action="new-appointment">＋ Book appointment</button></div>
+          <div class="panel"><div class="toolbar"><div class="search-box">⌕ <input id="appointmentSearch" placeholder="Search patient or doctor..."></div><span class="result-count" id="appointmentCount"></span></div><div class="table-wrap"><table><thead><tr><th>PATIENT</th><th>DOCTOR</th><th>DATE & TIME</th><th>REASON</th><th>STATUS</th><th>ACTIONS</th></tr></thead><tbody id="appointmentsTable"></tbody></table></div></div>
+        </section>
+
+        <section id="doctorsPage" class="page">
+          <div class="page-heading"><div><p class="eyebrow">CARE TEAM</p><h1>Doctors</h1><p class="muted">Meet the professionals supporting our patients.</p></div><button class="btn primary" data-action="new-doctor">＋ Add doctor</button></div>
+          <div id="doctorGrid" class="doctor-grid"></div>
+        </section>
+      </div>
+      <footer class="footer">© 2026 Ineza Clinic <span>Patient Support Management System <b>•</b> Demo version</span></footer>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true"><div class="modal-head"><div><p class="eyebrow" id="modalEyebrow">NEW RECORD</p><h2 id="modalTitle">Add patient</h2></div><button class="close-modal" id="closeModal">×</button></div><div id="modalBody"></div></div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
